@@ -1,8 +1,6 @@
 # BasicCrud
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/basic_crud`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Contains base (overridable) logic for default controller actions index/show/edit/create/update/destroy
 
 ## Installation
 
@@ -23,7 +21,7 @@ Or install it yourself as:
 ## Usage
 
 In the (empty) controller, include basic_crud
-```
+```ruby
 class ApplicationController < ActionController::Base
   include BasicCrud
 end
@@ -36,6 +34,21 @@ Objects are stored in `@record` or `@records` and accessible in the views.
 If you need additional functionality, e.g. special logic for your index page, just override `def index .. end`.
 Be sure to store your results in `@record` or `@records`
 
+You can also call the super method and inject a block:
+```ruby
+def index
+  super do
+    # your logic here, e.g. @record.attribute1 = "static string"
+    # your logic is called between record fetching and displaying the view
+  end
+end
+```
+
+## Tests
+
+Specs are written for a dummy rails app, run `rspec spec` to run the specs.
+Because this gem needs controllers, the specs are located at `spec/dummy/spec`
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -44,7 +57,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/basic_crud.
+Bug reports and pull requests are welcome on GitHub at https://github.com/rongworks/basic_crud.
+
 
 
 ## License
