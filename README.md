@@ -24,10 +24,23 @@ In the (empty) controller, include basic_crud
 ```ruby
 class ApplicationController < ActionController::Base
   include BasicCrud
+  
 end
 ```
 In this example, all controllers will inherit BasicCrud functionality.
 You can also just include the Module into certain controllers.
+
+Controllers must override the `restricted_params` method and permit params, e.g.:
+```ruby
+class ExampleController < ActionController::Base
+  include BasicCrud
+
+  def restricted_params
+    params.require(:example).permit(:name, :thingy)
+  end
+end
+```
+https://edgeguides.rubyonrails.org/action_controller_overview.html#strong-parameters
 
 Objects are stored in `@record` or `@records` and accessible in the views.
 
